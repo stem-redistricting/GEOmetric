@@ -1,26 +1,25 @@
 # GEOmetric
-Calculate the Geography and Election Outcome metric
-The Python program GEOMetricCalculatorForSharingFINAL.py will calculate the Geography and Election Outcome (GEO) metric as described in the preprint “The Geography and Election Outcome (GEO) Metric: An Introduction” by Campisi, Ratliff, Somersille, and Veomett available at https://arxiv.org/abs/2103.12856. 
 
-The files in this directory demonstrate how to use the program to calculate the GEO metric for the enacted 2011 Congressional districting plan for Pennsylvania. 
-Input files
-There are two csv files required for input to GEOMetricCalculator.py:
+--
 
-PA_Senate2016_ElectionOutcome.csv
+GEOMetricCalculatorForSharingFINAL.py will calculate the Geography and Election Outcome (GEO) metric as described in the preprint “The Geography and Election Outcome (GEO) Metric: An Introduction” by Campisi, Ratliff, Somersille, and Veomett available at [https://www.liebertpub.com/doi/full/10.1089/elj.2021.0054](https://www.liebertpub.com/doi/full/10.1089/elj.2021.0054). 
 
-This file contains the Democratic and Republican election results of the 2016 election for the U.S. Senate broken down by Congressional district. 
+## Input Data
 
-The first column contains the district number, the second contains the votes for the Democratic candidate, and the third contains the votes for the Republican candidate. 
+Two csv files are required: the Election Outcome data and the Geography data.  
+
+The Election outcome data has three columns: the first column contains the district number, the second contains the votes for the Democratic candidate, and the third contains the votes for the Republican candidate.  
+
+The Geography data contains adjacency information for the districting map: each row contains two district numbers, indicating that these districts are adjacent in the districting plan. The districts may appear in either order. For example, if District 1 is adjacent to District 5, then the program will recognize 1,5 or 5,1 or even both. 
+
+To start out, you may find it useful to try out these sample data:
+
+[PA_Senate2016_ElectionOutcome.csv](https://github.com/stem-redistricting/GEOmetric/blob/0cbbda53d721c06cca85a7a09f88ba265d81363e/PA_Senate2016_ElectionOutcome.csv) contains the Democratic and Republican election results of the 2016 election for the U.S. Senate broken down by Congressional district.  The first column contains the district number, the second contains the votes for the Democratic candidate, and the third contains the votes for the Republican candidate. 
 
 
 
-PA_2011map_edges.csv
+[PA_2011map_edges.csv](https://github.com/stem-redistricting/GEOmetric/blob/0cbbda53d721c06cca85a7a09f88ba265d81363e/PA_2011map_edges.csv) contains adjacency information for the 2011 Congressional districts.  Each row contains two district numbers, indicating that these districts are adjacent in the districting plan. 
 
-This file contains adjacency information for the 2011 Congressional districts.  
-
-Each row contains two district numbers, indicating that these districts are adjacent in the districting plan. 
-
-Note: The districts may appear in either order. For example, if District 1 is adjacent to District 5, then the program will recognize 1,5 or 5,1 or even both. 
 
 Parameters to set in GEOMetricCalculator.py
 The user can input different files to evaluate a different map and/or different election outcome.
