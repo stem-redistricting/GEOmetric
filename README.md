@@ -21,24 +21,29 @@ To start out, you may find it useful to try out these sample data:
 [PA_2011map_edges.csv](https://github.com/stem-redistricting/GEOmetric/blob/0cbbda53d721c06cca85a7a09f88ba265d81363e/PA_2011map_edges.csv) contains adjacency information for the 2011 Congressional districts.  Each row contains two district numbers, indicating that these districts are adjacent in the districting plan. 
 
 
-Parameters to set in GEOMetricCalculator.py
+## Parameters
 The user can input different files to evaluate a different map and/or different election outcome.
 
+```
 election_file = './PA_Senate2016_ElectionOutcome.csv'
 edges_file = './PA_2011map_edges.csv'
-
+'''
 
 These specify the input files described above. 
 
+```
 output_file_prefix = 'PASenate16'
+'''
 
 This specifies the output file prefix, if you’d like to run the code on many different maps/election outcomes.
 
 
-Output files
+## Output files
 There will be two output files written for each party (thus, four output files total). The file names include the vote share parameters and columns from election_file used in calculating the GEO metric. 
 
+```
 1PASenate16_GEO_0.55_0.5.csv
+'''
 
 This file contains four columns related to the party whose results are given in column 1 of election_file.  
 The first gives the GEO score.
@@ -48,12 +53,14 @@ The fourth lists Contributing Lost districts, i.e. those lost by the party and t
 
 Note: The order of the districts in each column correspond to the order that they were encountered in the algorithm.  For newly competitive districts, this is by decreasing value of average neighbor vote share A_i.  For contributing districts, this is just by increasing numerical label of the district. 
 
+```
 1_aux_PASenate16_GEO_0.55_0.5.csv
+'''
 
 This file contains additional information about the computations. It lists the Newly Competitive districts in the order in which the GEO metric algorithm transferred votes to them. For each Newly Competitive district, the file lists its original vote share, its average neighbor vote share, the district which transferred votes, the vote shares that district transferred, and whether the transferring district was winning or losing. 
 
 
-Screen Output
+## Screen Output
 The Python terminal screen will also output results.  It starts with party 1, and lists which districts were made competitive in order of decreasing neighborhood vote share A_i, and the contributing districts in increasing numerical order.
 
 It then outputs the GEO score for that party, and a list of newly competitive districts (again in order of decreasing A_i).
@@ -66,7 +73,5 @@ All of the above is also printed for party 2.
 
 For questions
 Contact: 
-Marion Campisi marion.campisi@sjsu.edu 
-Tommy Ratliff ratliff_thomas@wheatoncollege.edu 
-Stephanie Somersille ssomersille@gmail.com 
 Ellen Veomett erv2@stmarys-ca.edu 
+Tommy Ratliff ratliff_thomas@wheatoncollege.edu 
