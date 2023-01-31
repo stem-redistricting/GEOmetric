@@ -27,13 +27,13 @@ The user can input different files to evaluate a different map and/or different 
 ```
 election_file = './PA_Senate2016_ElectionOutcome.csv'
 edges_file = './PA_2011map_edges.csv'
-'''
+```
 
 These specify the input files described above. 
 
 ```
 output_file_prefix = 'PASenate16'
-'''
+```
 
 This specifies the output file prefix, if you’d like to run the code on many different maps/election outcomes.
 
@@ -43,7 +43,7 @@ There will be two output files written for each party (thus, four output files t
 
 ```
 1PASenate16_GEO_0.55_0.5.csv
-'''
+```
 
 This file contains four columns related to the party whose results are given in column 1 of election_file.  
 The first gives the GEO score.
@@ -55,7 +55,7 @@ Note: The order of the districts in each column correspond to the order that the
 
 ```
 1_aux_PASenate16_GEO_0.55_0.5.csv
-'''
+```
 
 This file contains additional information about the computations. It lists the Newly Competitive districts in the order in which the GEO metric algorithm transferred votes to them. For each Newly Competitive district, the file lists its original vote share, its average neighbor vote share, the district which transferred votes, the vote shares that district transferred, and whether the transferring district was winning or losing. 
 
