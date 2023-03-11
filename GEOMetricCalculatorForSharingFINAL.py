@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 """
+EV mods 3, started Mar 10, 2023 (fixed to allow for non-integer district names)
+
 TR mods 3, started Oct 25, 2021 (minor screen output tweaks)
 
 EV mods 2, started Sept 14, 2021
@@ -89,10 +91,10 @@ all_edges_df.reset_index(drop=True, inplace=True)
 #Build lists of neighbors
 #neighbors[i] will contain list of neighbors of district i
 districts=election_df.index.tolist()  #Get list of districts from election_df
-neighbors = [ [] for i in range( len(districts)+1)]  #Initiate empty list of neighbors
-for i in districts:
-    n_index = all_edges_df.index[(all_edges_df[0]==i)].tolist()   #Get index in all_edges_df of neighbors of i
-    neighbors[i].extend(all_edges_df.iloc[n_index,1].tolist())    #Add values to neighbors list
+neighbors = dict()  #Initiate empty dictionary of neighbors
+for district in districts:
+    n_index = all_edges_df[(all_edges_df[0] == district)][1].tolist()   #Get index in all_edges_df of neighbors of i
+    neighbors[district] = n_index  #Add values to neighbors list
     
     
 
@@ -123,9 +125,9 @@ for party in range(1,num_parties+1):
         
     
     #Compute Avg Neighbor Vote Share 
-    for i in range(1,len(geo_df)+1):
-        total_neighborhood_votes = geo_df.loc[ neighbors[i],'Vote Share'].sum() + geo_df.at[i,'Vote Share']
-        geo_df.at[i,'Avg Neighbor Vote Share'] = total_neighborhood_votes / (len(neighbors[i])+1)
+    for district in districts:
+        total_neighborhood_votes = geo_df.loc[neighbors[district],'Vote Share'].sum() + geo_df.at[district,'Vote Share']
+        geo_df.at[district,'Avg Neighbor Vote Share'] = total_neighborhood_votes / (len(neighbors[district])+1)
         
     #Use standard deviation of A_i to adjust votes to share, allow possibility of different adjustments for winning and losing districts 
     stdev = geo_df['Avg Neighbor Vote Share'].std()
@@ -133,15 +135,15 @@ for party in range(1,num_parties+1):
     loss_adj = stdev    #A_i - loss_adj for losing districts
     
         
-    for i in range(1,len(geo_df)+1):
-        avg_neigh_vs = geo_df.at[i,'Avg Neighbor Vote Share']
-        if geo_df.at[i,'Vote Share'] > max_cvs:   #Winning district that we potentially allow to share votes
-            geo_df.at[i,'Votes to Share'] = max(0, geo_df.at[i,'Vote Share'] - max(max_cvs,avg_neigh_vs-win_adj))
-        elif geo_df.at[i,'Vote Share'] >= min_cvs:  #Winning district we do not allow to share votes
-            geo_df.at[i,'Votes to Share'] = 0
-            geo_df.at[i,'Is Competitive'] = True            
+    for district in districts:
+        avg_neigh_vs = geo_df.at[district,'Avg Neighbor Vote Share']
+        if geo_df.at[district,'Vote Share'] > max_cvs:   #Winning district that we potentially allow to share votes
+            geo_df.at[district,'Votes to Share'] = max(0, geo_df.at[district,'Vote Share'] - max(max_cvs,avg_neigh_vs-win_adj))
+        elif geo_df.at[district,'Vote Share'] >= min_cvs:  #Winning district we do not allow to share votes
+            geo_df.at[district,'Votes to Share'] = 0
+            geo_df.at[district,'Is Competitive'] = True            
         else:                                   #Losing district
-            geo_df.at[i,'Votes to Share'] = max(0, geo_df.at[i,'Vote Share']-(avg_neigh_vs-loss_adj))
+            geo_df.at[district,'Votes to Share'] = max(0, geo_df.at[district,'Vote Share']-(avg_neigh_vs-loss_adj))
         
       
         
