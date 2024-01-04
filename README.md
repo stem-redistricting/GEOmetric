@@ -71,5 +71,5 @@ Finally, it outputs the contributing lost districts, in decreasing order of the 
 All of the above is also printed for party 2.
 
 For questions, contact 
-Ellen Veomett erv2@stmarys-ca.edu 
+Ellen Veomett eveomett@usfca.edu 
 Tommy Ratliff ratliff_thomas@wheatoncollege.edu 
